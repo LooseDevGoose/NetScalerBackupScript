@@ -60,7 +60,7 @@ $folder = New-Item -Path "$($PSScriptRoot)\$((Get-Date).ToString('yyyy-MM-dd_HH-
 try{
     Write-Host -ForegroundColor Green "Retrieving the main ns.conf file"
     $path = "/nsconfig/partitions/coding_partition"
-    $escapedLocation = [System.Uri]::EscapeDataString("/nsconfig/partitions/coding_partition")
+    $escapedLocation = [System.Uri]::EscapeDataString("/nsconfig/")
     $url = "https://$($NSIP)/nitro/v1/config/systemfile?args=filelocation:$($escapedLocation),filename:ns.conf"
     $file = Invoke-RestMethod -Uri $URL -headers $headers -Method Get -ContentType "application/json" -SkipCertificateCheck
     Set-Content -Path "$($folder.FullName)\ns.conf" -Value ([System.Convert]::FromBase64String($file.systemfile.filecontent)) -Force -AsByteStream
